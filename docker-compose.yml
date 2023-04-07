@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  php-apache:
+    container_name: ku_kurisaba
+    ports:
+      - "80:80"
+    build: './build/php'
+    volumes:
+      - ./kurisaba:/var/www/html
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: ku_mysql
+    ports:
+      - "3306:3306"
+    build: './build/mysql'
+    platform: 'linux/x86_64'
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "ku_db"
+    volumes:
+      - dbData:/var/lib/mysql
+volumes:
+  app:
+  dbData:
